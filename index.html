@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalkulator Indeks Prestasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Dekorasi latar belakang -->
+  <style>
+    body{
+      background-image: url('picture/SL-043021-42650-20.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+  <!-- <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div> -->
+
+  <div class="wrapper">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-badge">✦ IP Calculator Semester</div>
+      <h1 class="header-title">Kalkulator <span>Indeks Prestasi</span></h1>
+      <p class="header-sub">Masukkan nilai Tugas, UTS, dan UAS untuk setiap mata kuliah</p>
+    </header>
+
+    <!-- Kartu Info Mahasiswa -->
+    <section class="info-card">
+      <div class="info-grid">
+
+        <div class="info-field">
+          <label class="info-label">Nama Mahasiswa</label>
+          <input type="text" class="info-input" id="inputNama" placeholder="Masukkan nama…" value="" />
+        </div>
+
+        <div class="info-field">
+          <label class="info-label">NIM</label>
+          <input type="text" class="info-input" id="inputNIM" placeholder="Masukkan NIM…" value="" />
+        </div>
+
+        <div class="info-field">
+          <label class="info-label">Semester</label>
+          <select class="info-input info-select" id="inputSemester">
+            <option value="" selected>Pilih Semester</option>
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
+          </select>
+        </div>
+
+        <div class="info-field">
+          <label class="info-label">Program Studi</label>
+          <select class="info-input info-select" id="inputJurusan">
+            <option value="" selected>Pilih Program Studi</option>
+            <option value="1">S1-Teknik Informatika</option>          
+            <option value="2">D3-Teknik Informatika</option>          
+            <option value="3">S1-Sistem Informasi</option>            
+            <option value="4">S1-Ilmu Komunikasi</option>             
+            <option value="5">S1-Desain Komunikasi Visual</option>    
+            <option value="6">D4-Film dan Televisi</option>           
+            <option value="7">D4-Animasi</option>                     
+            <option value="8">S1-PJJ Informatika</option>             
+          </select>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tabel Nilai -->
+    <section class="table-section">
+      <div class="table-wrap">
+        <table class="grade-table">
+          <thead>
+            <tr>
+              <th class="col-no">No.</th>
+              <th class="col-name">Mata Kuliah</th>
+              <th class="col-sks">SKS</th>
+              <th class="col-score">Tugas (40%)</th>
+              <th class="col-score">UTS (30%)</th>
+              <th class="col-score">UAS (30%)</th>
+              <th class="col-final">Nilai Akhir</th>
+              <th class="col-grade">Grade</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Keterangan Bobot -->
+    <div class="weight-info">
+      <span class="weight-dot tugas"></span><span>Tugas <strong>40%</strong></span>
+      <span class="weight-dot uts"></span><span>UTS <strong>30%</strong></span>
+      <span class="weight-dot uas"></span><span>UAS <strong>30%</strong></span>
+    </div>
+
+    <!-- Tombol Aksi -->
+    <div class="btn-group">
+      <button class="btn btn-reset" onclick="resetForm()">↺ Reset</button>
+      <button class="btn btn-calc" onclick="calculateIP()">Hitung IP</button>
+    </div>
+
+    <h4 color="grey">Scroll ke bawah untuk melihat hasil</h4>
+    
+    <!-- Kartu Hasil -->
+    <section class="result-card" id="resultCard">
+      <div class="result-inner">
+        <div class="result-label">Indeks Prestasi (IP) Semester</div>
+        <div class="result-ip" id="resultIP">0.00</div>
+        <div class="result-status" id="resultStatus">—</div>
+        <div class="result-meta" id="resultMeta"></div>
+      </div>
+    </section>
+
+    <!-- Tabel Konversi Referensi -->
+    <details class="ref-details">
+      <summary>Lihat Tabel Konversi Nilai</summary>
+      <div class="ref-table-wrap">
+        <table class="ref-table">
+          <thead>
+            <tr><th>Nilai Angka</th><th>Grade</th><th>Keterangan</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>90 – 100</td><td class="g-a">A</td><td>Sangat Baik</td></tr>
+            <tr><td>80 – 89</td><td class="g-ab">AB</td><td>Baik</td></tr>
+            <tr><td>70 – 79</td><td class="g-b">B</td><td>Cukup Baik</td></tr>
+            <tr><td>60 – 69</td><td class="g-bc">BC</td><td>Cukup</td></tr>
+            <tr><td>50 – 59</td><td class="g-c">C</td><td>Kurang</td></tr>
+            <tr><td>&lt; 50</td><td class="g-f">D</td><td>Gagal</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
